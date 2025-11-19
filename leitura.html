@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Leitura do PDF</title>
 
 <style>
   body {
-    background: #000;
+    background-color: #000;
     color: #fff;
     margin: 0;
     padding: 0;
@@ -15,30 +15,33 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+
+  .btn-central {
+    background-color: #444;
+    color: #fff;
+    padding: 20px 40px;
+    border-radius: 10px;
+    font-size: 22px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: 0.2s;
+  }
+
+  .btn-central:hover {
+    background-color: #666;
   }
 
   .container {
     width: 100%;
     max-width: 900px;
     padding: 20px;
-  }
-
-  .btn-comprar {
-    display: block;
-    width: 100%;
-    background: #444;
-    color: #fff;
-    padding: 15px;
-    text-align: center;
-    margin-top: 20px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-size: 20px;
-    transition: 0.2s;
-  }
-
-  .btn-comprar:hover {
-    background: #666;
+    display: none; /* escondido até clicar no botão */
+    flex-direction: column;
+    align-items: center;
   }
 
   .btn-download {
@@ -51,6 +54,7 @@
     font-weight: bold;
     border-radius: 8px;
     text-decoration: none;
+    font-size: 18px;
   }
 
   iframe {
@@ -60,58 +64,60 @@
   }
 </style>
 
-<!-- META PIXEL -->
+<!-- Meta Pixel -->
 <script>
-  !(function(f,b,e,v,n,t,s){
-    if(f.fbq)return;
-    n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;
-    n.push=n;
-    n.loaded=!0;
-    n.version='2.0';
-    n.queue=[];
-    t=b.createElement(e);
-    t.async=!0;
-    t.src=v;
-    s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)
-  })(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+!(function(f,b,e,v,n,t,s){
+  if(f.fbq)return;
+  n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;
+  n.push=n;
+  n.loaded=!0;
+  n.version='2.0';
+  n.queue=[];
+  t=b.createElement(e);
+  t.async=!0;
+  t.src=v;
+  s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)
+})(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
 
-  fbq('init', '1334773878440796');  /* SEU PIXEL REAL */
+fbq('init', '1334773878440796');  /* SEU PIXEL REAL */
 </script>
 
 </head>
 <body>
 
-<div class="container">
+<!-- Botão central -->
+<a class="btn-central" id="btnComprar">Abrir PDF Completo</a>
 
-  <!-- BOTÃO PARA BAIXAR PDF -->
+<!-- Container da leitura -->
+<div class="container" id="pdfContainer">
+  <!-- Botão de download -->
   <a class="btn-download" href="https://raw.githubusercontent.com/lenogte/pdfcodigodoencontro/main/codigo_encontro.pdf" download="codigo_encontro.pdf">
     📥 Baixar PDF
   </a>
 
-  <!-- LEITOR DE PDF NA TELA -->
+  <!-- iframe do PDF -->
   <iframe src="https://raw.githubusercontent.com/lenogte/pdfcodigodoencontro/main/codigo_encontro.pdf"></iframe>
-
-  <!-- BOTÃO CINZA COM PIXEL -->
-  <a
-    class="btn-comprar"
-    id="btnComprar"
-    href="https://raw.githubusercontent.com/lenogte/pdfcodigodoencontro/main/codigo_encontro.pdf"
-    target="_blank"
-  >
-    Abrir o PDF completo
-  </a>
 </div>
 
 <script>
-  // Cookie local quando clicar
-  document.getElementById("btnComprar").addEventListener("click", function () {
+  const btnComprar = document.getElementById("btnComprar");
+  const pdfContainer = document.getElementById("pdfContainer");
+
+  btnComprar.addEventListener("click", function() {
+    // Salva cookie para computar evento compra
     document.cookie = "evento_compra=true; path=/; max-age=86400";
 
     // Evento de compra no Pixel
     fbq('track', 'Purchase');
+
+    // Mostra a leitura do PDF
+    pdfContainer.style.display = "flex";
+
+    // Esconde o botão central
+    btnComprar.style.display = "none";
   });
 </script>
 
