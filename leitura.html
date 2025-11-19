@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Leitura do PDF</title>
+
+<style>
+  body {
+    background: #000;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 900px;
+    padding: 20px;
+  }
+
+  .btn-comprar {
+    display: block;
+    width: 100%;
+    background: #444;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    margin-top: 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 20px;
+    transition: 0.2s;
+  }
+
+  .btn-comprar:hover {
+    background: #666;
+  }
+
+  .btn-download {
+    display: block;
+    background: #888;
+    color: #000;
+    padding: 12px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+  }
+
+  iframe {
+    width: 100%;
+    height: 80vh;
+    border: none;
+  }
+</style>
+
+<!-- META PIXEL -->
+<script>
+  !(function(f,b,e,v,n,t,s){
+    if(f.fbq)return;
+    n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;
+    n.push=n;
+    n.loaded=!0;
+    n.version='2.0';
+    n.queue=[];
+    t=b.createElement(e);
+    t.async=!0;
+    t.src=v;
+    s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)
+  })(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+  fbq('init', '1334773878440796');  /* SEU PIXEL REAL AQUI */
+</script>
+
+</head>
+<body>
+
+<div class="container">
+
+  <!-- BOTÃO PARA BAIXAR PDF -->
+  <a class="btn-download" href="https://raw.githubusercontent.com/lenogte/pdfcodigodoencontro/main/O%20Código%20do%20Encontro%20Guia%20Oficial.pdf" download="O Código do Encontro Guia Oficial.pdf">
+    📥 Baixar PDF
+  </a>
+
+  <!-- LEITOR DE PDF NA TELA -->
+  <iframe src="https://raw.githubusercontent.com/lenogte/pdfcodigodoencontro/main/O%20Código%20do%20Encontro%20Guia%20Oficial.pdf"></iframe>
+
+  <!-- BOTÃO CINZA COM PIXEL -->
+  <a
+    class="btn-comprar"
+    id="btnComprar"
+    href="https://raw.githubusercontent.com/lenogte/pdfcodigodoencontro/main/O%20Código%20do%20Encontro%20Guia%20Oficial.pdf"
+    target="_blank"
+  >
+    Abrir o PDF completo
+  </a>
+</div>
+
+<script>
+  // Cookie local quando clicar
+  document.getElementById("btnComprar").addEventListener("click", function () {
+    document.cookie = "evento_compra=true; path=/; max-age=86400";
+
+    // Evento de compra no Pixel
+    fbq('track', 'Purchase');
+  });
+</script>
+
+</body>
+</html>
