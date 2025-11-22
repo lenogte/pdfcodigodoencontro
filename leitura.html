@@ -16,7 +16,7 @@
     s.parentNode.insertBefore(t,s)
   }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
 
-  fbq('init', '1334773878440796'); // seu pixel
+  fbq('init', '1334773878440796'); 
   fbq('track', 'PageView');
 </script>
 <noscript>
@@ -24,6 +24,7 @@
        src="https://www.facebook.com/tr?id=1334773878440796&ev=PageView&noscript=1"/>
 </noscript>
 <!-- FIM Pixel -->
+
 <style>
   body {
     margin: 0;
@@ -40,23 +41,18 @@
 </style>
 
 <script>
-  // Quando o usuário clicar no PDF, dispara compra apenas 1 vez
   function registrarCompra() {
-    // Verifica se já registrou antes
     if (!localStorage.getItem('compra_registrada')) {
         fbq('track', 'Purchase', { value: 1.00, currency: 'BRL' });
         localStorage.setItem('compra_registrada', 'true');
         console.log("Evento de compra enviado!");
     } else {
-        console.log("Evento já foi enviado anteriormente. Não enviar novamente.");
+        console.log("Evento já enviado antes.");
     }
   }
 
-  // Ativa o gatilho quando o usuário clicar no iframe (PDF)
   document.addEventListener("DOMContentLoaded", function () {
-    document.addEventListener("click", function () {
-      registrarCompra();
-    });
+    document.addEventListener("click", registrarCompra);
   });
 </script>
 
@@ -64,7 +60,7 @@
 <body>
 
 <iframe 
-  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/lenogte/pdfcodigodoencontro/main/codigo_encontro.pdf">
+  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/lenogte/pdfcodigodoencontro/main/guia.pdf">
 </iframe>
 
 </body>
